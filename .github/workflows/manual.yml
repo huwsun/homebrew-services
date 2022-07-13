@@ -1,0 +1,20 @@
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron: '0 */1 * * *'
+name: Mirror GitHub Auto Queried Repos to Gitee
+jobs:
+  run:
+    name: Sync-homebrew-GitHub-to-Gitee
+    runs-on: ubuntu-latest
+    steps:
+    - name: Mirror the Github repos to Gitee.
+      uses: Yikun/hub-mirror-action@master
+      with:
+        src: github/Homebrew
+        dst: gitee/polus_admin
+        dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+        dst_token: ${{ secrets.GITEE_TOKEN }}
+        static_list: "homebrew-services"
+        src_account_type: org
+        force_update: true
